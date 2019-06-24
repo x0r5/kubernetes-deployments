@@ -11,7 +11,7 @@ spec:
     #how to update the pods?
     #strategy: Recreate
 
-    #which pods are managed by this deployment?
+    #which pods are managed by this deployment<
     selector:
       #match labels on the PODS!
       matchLabels:
