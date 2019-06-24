@@ -3,7 +3,7 @@ kind: Deployment
 metadata:    #name form the deployment / pod / service
   name: nodejs-deployment
 spec:    #deployments`s specification:
-  replicas: 1    #number of replicas on each pod
+  replicas: 3    #number of replicas on each pod
   #strategy: Recreate    #how to update the pods? DO NOT UNCOMMENT
   selector:     #Which pods are manageed by this deployment?
     matchLabels:    #Match labels with the Pods!
