@@ -1,35 +1,35 @@
 apiVersion: extensions/v1beta1
+      #deployment / pod / service
 kind: Deployment
 metadata:
-  name: nodejs
+      #name form the deployment / pod / service
+  name: nodejs-deployment
+      #deployments`s specification:
 spec:
-    #deployment's specification
-
-    #number of replicas of each pod
-    replicas: 2
-
-    #how to update the pods?
-    #strategy: Recreate
-
-    #which pods are managed by this deployment<
-    selector:
-      #match labels on the PODS!
-      matchLabels:
-        deploy: nodejs
-
-    #regular  pod configuration, nested inside deployment spec 
-    template:
-      metadata:
-        #set labels on the pod
-        labels:
-          app: nodejs
-      spec:
-        containers:
-          - name: nodejs-container
-            image: x0r5/nodejs
-            ports:
-              - containerPort: 3000
-                name: http
+      #number of replicas on each pod
+  replicas: 1
+      #how to update the pods?
+  strategy: Recreate
+      #Which pods are manageed by this deployment?
+  selector:
+      #Match labels on the Pods!
+    matchLabels:
+      app: nodejs
+      #POD configuration template nested inside deployment
+  template:
+    metadata:
+      #Set labels on the pod
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: nodejs-container
+        image: x0r5/nodejs
+        ports:                                      
+        - containerPort: 3000                       
+          name: http                                
+        - containerPort: 22                         
+          name: ssh                                 
 # ---
 # kind: Service
 # apiVersion: v1
