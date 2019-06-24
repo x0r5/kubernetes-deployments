@@ -25,7 +25,7 @@ spec:    #deployments`s specification:
   kind: Service
   apiVersion: v1
   metadata:
-    name: gitea-service
+    name: nodejs-service
   spec:
     selector:
       app: nodejs
@@ -39,25 +39,3 @@ spec:    #deployments`s specification:
       port: 22
       name: ssh
     type: LoadBalancer
-      
-# ---
-# kind: Service
-# apiVersion: v1
-# metadata:
-#   name: nodejs-service
-# spec:
-#   selector:
-#     app: nodejs
-#   ports:
-#   - port: 32000
-#     #inside the cluster what port does the service expose? expose the service on the port internally within the cluster, the service becomes visible on this port 
-#     #service port:
-    
-#     #which port do pods selected by this service expose? the port on the pod that the request is sent to
-#     #pod's port
-#     targetPort: 3000
-#     #which port on the node is the service available through? makes the service visible outside the cluster
-#     #node's port visible outside
-#     nodePort: 32000
-#   #make the service externally visible via the node:
-#   type: NodePort
