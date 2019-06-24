@@ -20,7 +20,26 @@ spec:    #deployments`s specification:
         - containerPort: 3000                       
           name: http                                
         - containerPort: 22                         
-          name: ssh                                 
+          name: ssh      
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: gitea-service
+  spec:
+    selector:
+      app: nodejs
+    ports:
+    - protocol: TCP
+      targetPort: 3000   #POD`s port, the request is sent to it
+      port: 80    #external IP
+      name: http
+    - protocol: TCP
+      targetPort: 22
+      port: 22
+      name: ssh
+    type: LoadBalancer
+      
 # ---
 # kind: Service
 # apiVersion: v1
