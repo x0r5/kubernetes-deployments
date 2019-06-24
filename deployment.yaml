@@ -1,25 +1,16 @@
-apiVersion: extensions/v1beta1
-      #deployment / pod / service
+apiVersion: extensions/v1beta1   #deployment / pod / service
 kind: Deployment
-metadata:
-      #name form the deployment / pod / service
+metadata:    #name form the deployment / pod / service
   name: nodejs-deployment
-      #deployments`s specification:
-spec:
-      #number of replicas on each pod
-  replicas: 1
-      #how to update the pods?
-  strategy: Recreate
-      #Which pods are manageed by this deployment?
-  selector:
-      #Match labels on the Pods!
-    matchLabels:
+spec:    #deployments`s specification:
+  replicas: 1    #number of replicas on each pod
+  #strategy: Recreate    #how to update the pods? DO NOT UNCOMMENT
+  selector:     #Which pods are manageed by this deployment?
+    matchLabels:    #Match labels with the Pods!
       app: nodejs
-      #POD configuration template nested inside deployment
-  template:
+  template:    #POD configuration template nested inside deployment
     metadata:
-      #Set labels on the pod
-      labels:
+      labels:    #Set labels on the pod
         app: nodejs
     spec:
       containers:
