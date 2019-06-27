@@ -1,59 +1,12 @@
-#with Persistent Volume
-apiVersion: extensions/v1beta1   #deployment / pod / service
-kind: Deployment
-metadata:    #name form the deployment / pod / service
-  name: minecraft-deployment
-spec:    #deployments`s specification:
-  replicas: 1    #number of replicas on each pod
-  #strategy: Recreate    #how to update the pods? DO NOT UNCOMMENT
-  selector:     #Which pods are manageed by this deployment?
-    matchLabels:    #Match labels with the Pods!
-      app: minecraft
-  template:    #POD configuration template nested inside deployment
-    metadata:
-      labels:    #Set labels on the pod
-        app: minecraft
-    spec:
-      containers:
-      - name: minecraft-container
-        image: x0r5/minecraft-2
-        ports:                                      
-        - containerPort: 25565
---- #just to make sure LoadBalancer is OK
-kind: Service
 apiVersion: v1
+kind: PesistentVolume
 metadata:
-  name: minecraft-service
-spec:
-  type: LoadBalancer
-  selector:
-    app: minecraft
-  ports:
-  - protocol: TCP
-    targetPort: 25565   #POD`s port, the request is sent to it
-    port: 25565    #external IP
---- #Persistent Volume
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: pv-minecraft
+  name: mysqlvol
 spec:
   storageClassName: manual
   capacity:
-    storage: 5Gi
+    storage: 10Gi
   accessModes:
-    - ReadWriteOnce
+    -  ReadWriteOnce
   hostPath:
-    path: "/mnt/data"
---- #Persistent Volume Claim
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: pvc-minecraft
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
+    path: "/mnt/data" #host location
