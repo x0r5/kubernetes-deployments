@@ -1,57 +1,23 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysqlvol
+  name: demo
 spec:
-  storageClassName: manual
   capacity:
-    storage: 10Gi
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  hostPath:
+    path: /mnt/data
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: demo
+spec:
   accessModes:
     -  ReadWriteOnce
-  hostPath:
-    path: "/mnt/data" #host location
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  name: hollowdb
-  labels:
-    app: hollowdb
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: holowdb
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: hollowdb
-    spec:
-      containers:
-      - name: mysql
-        image: eshanks16/hollowdb-mysql:v4 
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3306 
-        volumeMounts:
-        - name: mysqlstorage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysqlstorage
-        persistentVolumeClaim:
-          claimName: mysqlvol
----
-apiVersion: v1 
-kind: Service 
-metadata: 
-  name: hollowdb 
-spec: 
-  ports: 
-  - name: mysql
-    port: 3306
-    targetPort: 3306
-    protocol: TCP
-  selector: 
-    app: hollowdb
+  resources:
+    requests:
+      storage: 2Gi
