@@ -31,3 +31,4 @@ spec:
   - protocol: TCP
     targetPort: 25565   #POD`s port, the request is sent to it
     port: 25565    #external IP
+---

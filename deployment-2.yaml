@@ -21,3 +21,20 @@ spec:
   resources:
     requests:
       storage: 2Gi
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: demo
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    imagePullPolicy: Always
+    volumeMounts:
+    - mountPath: "/mnt"
+      name: demo
+  volumes:
+    - name: demo
+      persistentVolumeClaim:
+        claimName: demo
