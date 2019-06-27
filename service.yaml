@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: dashboard-service
+spec:
+  selector:
+    app: kubernetes-dashboard
+  ports:
+  - protocol: TCP
+    targetPort: 8443   #POD`s port, the request is sent to it
+    port: 8443    #external IP
+    name: http
+  type: LoadBalancer

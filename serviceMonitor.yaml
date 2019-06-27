@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: minecraft-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: minecraft
+  namespaceSelector:
+    matchNames:
+    - soma-test
+  endpoints:
+  - port: web
+    interval: 30s
