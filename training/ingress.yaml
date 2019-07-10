@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-https-ingress
+# annotations are optional at this stage! 
+  annotations:
+    <annotations-key>: <annotations-value>
+  labels:
+    app: nginx-https
+spec:
+  rules:
+  - host: part-0014.ingress.bud.k8s-train.shoot.canary.k8s-hana.ondemand.com  #<host string>
+    http:
+      paths:
+      - path:  #<URI relative to the host>
+        backend:
+          serviceName: <string>
+          servicePort: <string>
