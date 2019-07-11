@@ -12,7 +12,7 @@ spec:
   - host: part-0014.ingress.bud.k8s-train.shoot.canary.k8s-hana.ondemand.com  #<host string>
     http:
       paths:
-      - path:  #<URI relative to the host>
+      - path:  /foo #<URI relative to the host>
         backend:
-          serviceName: <string>
-          servicePort: <string>
+          serviceName: nginx-service
+          servicePort: 80
