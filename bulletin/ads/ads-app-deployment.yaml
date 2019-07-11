@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ads-app-deployment
+  labels:
+    component: ads
+    module: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: ads
+      module: app
+  template:
+    metadata:
+      labels:
+        component: ads
+        module: app
+    spec:
+      volumes:
+      - name: ads-app-properties
+        secret:
+          secretName: ads-app-secret
+          items:
+          - key: application-k8s.yaml #<name-of-the-key-with-the-file-content>
+            path: application-k8s.yml
+      imagePullSecrets:
+      - name: artifactory
+      containers:
+      - name: ads
+        image: cc-k8s-course.docker.repositories.sap.ondemand.com/k8s/bulletinboard-ads:latest
+        ports:
+        - containerPort: 8080
+          name: ads-app-port
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              key: spring_profiles_active_value #<name-of-data-specified-in-configmap>
+              name: ads-app-configmap
+        volumeMounts:
+        - mountPath: /config/
+          name: ads-app-properties
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            memory: 800Mi
